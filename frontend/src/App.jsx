@@ -31,7 +31,9 @@ function App() {
 
   const fetchCustomers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/customers");
+      const res = await axios.get(
+        "https://campaign-managament-system.onrender.com/api/customers"
+      );
       setCustomers(res.data);
     } catch (err) {
       console.error("Failed to fetch customers", err);
@@ -40,7 +42,10 @@ function App() {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:5000/api/add-customer", customer);
+      await axios.post(
+        "https://campaign-managament-system.onrender.com/api/add-customer",
+        customer
+      );
       alert("Customer added successfully");
       setCustomer({ name: "", email: "", phone: "", channel: "Email" });
       fetchCustomers();
@@ -51,9 +56,12 @@ function App() {
 
   const sendCampaign = async (index) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/send-campaign", {
-        index,
-      });
+      const res = await axios.post(
+        "https://campaign-managament-system.onrender.com/api/send-campaign",
+        {
+          index,
+        }
+      );
       alert(res.data.message);
       fetchCustomers();
     } catch (err) {

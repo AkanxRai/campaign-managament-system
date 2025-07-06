@@ -80,4 +80,21 @@ const sendCampaign = (req, res) => {
   }
 };
 
-module.exports = { addCustomer, getCustomers, sendCampaign, customers };
+const getAnalytics = (req, res) => {
+    const total = customers.length;
+    const sent = customers.filter(c => c.status === 'Sent').length;
+    const failed = customers.filter(c => c.status === 'Failed').length;
+    const pending = customers.filter(c => c.status === 'Not Sent').length;
+    const successRate = total > 0 ? ((sent / total) * 100).toFixed(2) : 0;
+
+    res.json({
+        total,
+        sent,
+        failed,
+        pending,
+        successRate
+    });
+};
+
+module.exports = { addCustomer, getCustomers, sendCampaign, getAnalytics, customers };
+
